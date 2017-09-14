@@ -1,3 +1,3 @@
 # esgi-chatbot
 
-The chat bot is developped with the Microsoft BotBuilder SDK
+The chat bot is developed with the Microsoft BotBuilder SDK
