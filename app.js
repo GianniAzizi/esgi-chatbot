@@ -1,16 +1,16 @@
-var restify = require('restify');
-var botbuilder = require('botbuilder');
+const restify = require('restify');
+const botbuilder = require('botbuilder');
 
 // setup restify server
 
-var server = restify.createServer();
+const server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3987, function(){
     console.log('%s bot started at %s', server.name, server.url);
 });
 
 // create chat connector
 
-var connector = new botbuilder.ChatConnector({
+const connector = new botbuilder.ChatConnector({
     appId: process.env.APP_ID,
     appPassword: process.env.APP_SECRET
 });
@@ -21,9 +21,9 @@ server.post('/api/messages', connector.listen());
 
 // Reply by echoing
 
-var savedAddress;
+let savedAddress;
 
-var bot = new botbuilder.UniversalBot(connector, function(session){
+let bot = new botbuilder.UniversalBot(connector, function(session){
     savedAddress = session.message.address;
     session.send(`Vous avez écrit : ${session.message.text} | [Longueur du texte : ${session.message.text.length}]`);
 });
@@ -36,13 +36,13 @@ bot.on('typing', function(){
 
 bot.on('conversationUpdate', function(message){
     savedAddress = message.address;
-    var isBot = (message.membersAdded && message.membersAdded.length == 1) ? 
+    let isBot = (message.membersAdded && message.membersAdded.length == 1) ? 
         message.membersAdded[0].id === message.address.bot.id : false; 
     if(!isBot) {
         if(message.membersAdded && message.membersAdded.length > 0) {
-            var membersAdded = message.membersAdded
+            let membersAdded = message.membersAdded
             .map(function(x) {
-                var isSelf = x.id === message.address.bot.id;
+                let isSelf = x.id === message.address.bot.id;
                 return (isSelf ? message.address.bot.name : x.name) || ' ' + '(Id = ' + x.id + ')';
             }).join(', ');
             bot.send(new botbuilder.Message()
@@ -53,9 +53,9 @@ bot.on('conversationUpdate', function(message){
 
         if (message.membersRemoved && message.membersRemoved.length > 0) {
             console.log(message.membersRemoved);
-            var membersRemoved = message.membersRemoved
+            let membersRemoved = message.membersRemoved
                 .map(function (m) {
-                    var isSelf = m.id === message.address.bot.id;
+                    let isSelf = m.id === message.address.bot.id;
                     return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
                 })
                 .join(', ');
