@@ -11,4 +11,4 @@ cache:
 test:
   script:
   # Run npm test in virtual display mode
-  - mocha tests --recursive --watch
+  - mocha tests --recursive

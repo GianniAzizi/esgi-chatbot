@@ -7,12 +7,6 @@ const connector = new botbuilder.ChatConnector({
     appPassword: process.env.APP_SECRET
 });
 
-let bot = new botbuilder.UniversalBot(connector, function(session){
-    savedAddress = session.message.address;
-    session.send(`Vous avez écrit : ${session.message.text} | [Longueur du texte : ${session.message.text.length}]`);
-});
-
-
 describe('Bot', function(){
     it('can create an instance of UniversalBot', function(){
         let bot = new botbuilder.UniversalBot(connector);
